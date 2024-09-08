@@ -56,6 +56,11 @@ class Balancer:
     def assign_call(self):
         return self.iterator.next()
 
+    def get_by(self, name):
+        for node in self.nodes:
+            if node.name == name:
+                return node
+
 
 balancer = Balancer()
 factory = NodesFactory()
@@ -79,6 +84,12 @@ class NodesResource(Resource):
 
 class SingleNodeResource(Resource):
     def patch(self, nodeName):
+        should_release = request.json.get('status')
+        node = balancer.get_by(nodeName)
+        if should_release:
+            service.release(node)
+        else:
+            service.lock(node)
         return '', 204
 
 

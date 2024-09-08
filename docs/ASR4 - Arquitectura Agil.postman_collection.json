@@ -1,0 +1,200 @@
+{
+	"info": {
+		"_postman_id": "9d3a922b-02c8-4221-ac20-f23557eebc71",
+		"name": "ASR4 - Arquitectura Agil",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14550156"
+	},
+	"item": [
+		{
+			"name": "Balancer - Assign Call",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"foo\": \"bar\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/assign-call",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"assign-call"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Balancer - Create node",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"foo-1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/nodes",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"nodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Calls - Simple",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"foo\": \"bar\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5051/process-call",
+					"host": [
+						"localhost"
+					],
+					"port": "5051",
+					"path": [
+						"process-call"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Node",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/nodes",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"nodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List nodes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/nodes",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"nodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Release/lock",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/nodes/node-5051",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"nodes",
+						"node-5051"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API GW - Call",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"client\": \"john\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/call",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"call"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

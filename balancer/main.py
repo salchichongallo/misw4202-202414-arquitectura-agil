@@ -1,5 +1,6 @@
 import os
-from flask import Flask, jsonify
+import requests as http
+from flask import Flask, jsonify, request
 from flask_restful import Api, Resource
 
 
@@ -63,7 +64,9 @@ service = NodeService()
 
 class CallResource(Resource):
     def post(self):
-        return jsonify({ 'foo': 'bar' })
+        node = balancer.assign_call()
+        response = http.post(node.url(), json=request.json)
+        return jsonify(response.json())
 
 
 class NodesResource(Resource):

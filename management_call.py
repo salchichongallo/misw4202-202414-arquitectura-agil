@@ -9,7 +9,7 @@ app = Flask(__name__)
 # Configuraciones iniciales
 MAX_LLAMADAS = 5
 llamadas_activas = 0
-monitor_url = "http://monitor:5002/report-status"  # URL del monitor
+monitor_url = "http://localhost:5002/report-status"  # URL del monitor
 lock = threading.Lock()  # Para manejar el acceso concurrente al contador
 monitoreo_activo = True  # Para controlar el monitoreo constante
 puerto_nodo = sys.argv[1]  # Extraer el puerto de ejecución del microservicio

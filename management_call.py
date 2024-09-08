@@ -17,12 +17,13 @@ puerto_nodo = sys.argv[1]  # Extraer el puerto de ejecución del microservicio
 nodo = sys.argv[2]
 
 # Función que simula el procesamiento de una llamada
-def procesar_llamada(client_id):
+def procesar_llamada():
     global llamadas_activas
 
     # Simular un tiempo de procesamiento de la llamada (5-30 segundos)
-    tiempo_procesamiento = random.randint(5, 30)
-    time.sleep(tiempo_procesamiento)
+    # tiempo_procesamiento = random.randint(5, 30)
+    # time.sleep(tiempo_procesamiento)
+    time.sleep(5)
 
     # Decrementar el contador de llamadas activas
     with lock:
@@ -48,9 +49,7 @@ def recibir_llamada():
         print(f"Nueva llamada recibida. Llamadas activas: {llamadas_activas}")
 
     # Simular el procesamiento de la llamada en un nuevo hilo
-    client_id = request.json.get('client', 'desconocido')
-    hilo = threading.Thread(target=procesar_llamada, args=(client_id,))
-    hilo.start()
+    procesar_llamada()
 
     return jsonify({'mensaje': 'Llamada en proceso'}), 200
 

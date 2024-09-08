@@ -1,4 +1,5 @@
 import os
+import subprocess
 import requests as http
 from flask import Flask, jsonify, request
 from flask_restful import Api, Resource
@@ -38,7 +39,8 @@ class NodesFactory:
 
 class NodeService:
     def release(self, node: CallNode):
-        # TODO: Start server via CLI on the node's port
+        script = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'management-call', 'app.py'))
+        subprocess.Popen(['python', script, str(node.port)])
         node.available = True
 
     def lock(self, node: CallNode):
@@ -101,4 +103,9 @@ api.add_resource(NodesResource, '/nodes')
 api.add_resource(SingleNodeResource, '/nodes/<string:nodeName>')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=os.environ.get('PORT', 5001))
+    # Start first node
+    node = factory.create_node()
+    service.release(node)
+    balancer.add(node)
+
+    app.run(debug=False, port=5001)

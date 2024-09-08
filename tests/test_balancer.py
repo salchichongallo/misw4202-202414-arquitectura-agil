@@ -1,6 +1,6 @@
 import unittest
 
-from balancer.main import NodesIterator, CallNode
+from balancer import NodesIterator, CallNode
 
 
 class TestNodesIterator(unittest.TestCase):

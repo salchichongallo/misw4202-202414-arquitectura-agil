@@ -14,6 +14,14 @@ class CallNode:
     def url(self):
         return f'http://localhost:{self.port}/process-call'
 
+    def toJSON(self):
+        return {
+            'name': self.name,
+            'port': self.port,
+            'available': self.available,
+            'url': self.url(),
+        }
+
 
 class NodesIterator:
     def __init__(self, nodes):
@@ -73,7 +81,7 @@ class CallResource(Resource):
     def post(self):
         node = balancer.assign_call()
         response = http.post(node.url(), json=request.json)
-        return jsonify(response.json())
+        return jsonify({ 'node': node.name, 'result': response.json() })
 
 
 class NodesResource(Resource):
@@ -82,6 +90,9 @@ class NodesResource(Resource):
         service.release(node)
         balancer.add(node)
         return jsonify({ 'node': node.name })
+
+    def get(self):
+        return jsonify([node.toJSON() for node in balancer.nodes])
 
 
 class SingleNodeResource(Resource):

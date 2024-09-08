@@ -39,7 +39,7 @@ def create_node():
     return node
 
 def start_node(node: CallNode):
-    subprocess.Popen(['python', 'management_call.py', str(node.port)])
+    subprocess.Popen(['python', 'management_call.py', str(node.port), node.name])
     next_node()
 
 def release_node(node: CallNode):

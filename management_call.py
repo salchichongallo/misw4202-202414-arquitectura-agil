@@ -3,6 +3,7 @@ import threading
 import time
 import random
 import sys
+import requests
 
 app = Flask(__name__)
 
@@ -13,6 +14,7 @@ monitor_url = "http://localhost:5002/report-status"  # URL del monitor
 lock = threading.Lock()  # Para manejar el acceso concurrente al contador
 monitoreo_activo = True  # Para controlar el monitoreo constante
 puerto_nodo = sys.argv[1]  # Extraer el puerto de ejecución del microservicio
+nodo = sys.argv[2]
 
 # Función que simula el procesamiento de una llamada
 def procesar_llamada(client_id):
@@ -55,11 +57,11 @@ def recibir_llamada():
 # Función para reportar el estado del nodo al monitor
 def reportar_estado(estado_disponible):
     data = {
-        "node": f"Nodo_{puerto_nodo}",  # El identificador del nodo será el puerto actual
+        "node": nodo,  # El identificador del nodo será el puerto actual
         "status": estado_disponible  # True: disponible, False: no disponible
     }
     try:
-        # response = requests.post(monitor_url, json=data)
+        response = requests.post(monitor_url, json=data)
         print(f"Estado reportado al monitor: {estado_disponible}, nodo: {puerto_nodo}")
     except Exception as e:
         print(f"Error al reportar al monitor: {e}")

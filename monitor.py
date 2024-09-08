@@ -1,7 +1,11 @@
-from __init__ import create_app
+
 from flask_restful import Resource, Api
-from flask import request
+from flask import request, Flask
 import requests
+
+def create_app(config_name):
+    app = Flask(__name__)
+    return app
 
 app = create_app('default')
 app_context = app.app_context()
@@ -10,7 +14,6 @@ app_context.push()
 api = Api(app)
 balanceador_url = 'http://localhost:5001'
 active_nodes = {}
-
 
 class VistaReportStatusNode(Resource):
     def post(self):

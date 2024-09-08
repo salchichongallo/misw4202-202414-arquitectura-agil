@@ -1,10 +1,14 @@
-from api_gateway import create_app
 from flask_restful import Resource, Api
-from flask import request
+from flask import request, Flask
 import requests
 import time
 from datetime import datetime
 import os
+
+
+def create_app(config_name):
+    app = Flask(__name__)
+    return app
 
 app = create_app('default')
 app_context = app.app_context()
@@ -13,13 +17,12 @@ app_context.push()
 api = Api(app)
 
 file_name = "calls_response.txt"
-file_path = os.path.join("responses", file_name)
 counter = 0
 
 def create_file():
     try:
-        os.remove("responses/calls_response.txt")
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        os.remove("calls_response.txt")
+        os.makedirs(os.path.dirname(file_name), exist_ok=True)
     except OSError:
         pass
 
@@ -40,10 +43,14 @@ class VistaLlamadas(Resource):
             "response_time": f"{response_time} ms"
         }
 
-        with open(file_path, "a") as file:
+        with open(file_name, "a") as file:
             file.write(str(response) + "\n")
 
         return response
 
 
 api.add_resource(VistaLlamadas, '/call')
+
+
+if __name__ == '__main__':
+    app.run(debug=False, port=5000)

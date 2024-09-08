@@ -23,6 +23,14 @@ class CallNode:
     def url(self):
         return f'http://localhost:{self.port}/process-call'
 
+    def toJSON(self):
+        return {
+            'name': self.name,
+            'port': self.port,
+            'available': self.available,
+            'url': self.url(),
+        }
+
 def create_node():
     global port
     name = f'node-{port}'
@@ -62,6 +70,9 @@ class NodesResource(Resource):
         start_node(node)
         release_node(node)
         return jsonify({ 'node': node.name })
+
+    def get(self):
+        return jsonify([node.toJSON() for node in nodes])
 
 
 class SingleNodeResource(Resource):

@@ -71,7 +71,10 @@ class CallResource(Resource):
 
 class NodesResource(Resource):
     def post(self):
-        return jsonify({ 'node': 'foo' })
+        node = factory.create_node()
+        service.release(node)
+        balancer.add(node)
+        return jsonify({ 'node': node.name })
 
 
 class SingleNodeResource(Resource):

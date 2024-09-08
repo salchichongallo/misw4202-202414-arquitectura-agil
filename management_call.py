@@ -2,18 +2,17 @@ from flask import Flask, request, jsonify
 import threading
 import time
 import random
-import requests
-import os
+import sys
 
 app = Flask(__name__)
 
 # Configuraciones iniciales
 MAX_LLAMADAS = 5
 llamadas_activas = 0
-monitor_url = "http://monitor:5002/report-status"  # URL del monitor
+monitor_url = "http://localhost:5002/report-status"  # URL del monitor
 lock = threading.Lock()  # Para manejar el acceso concurrente al contador
 monitoreo_activo = True  # Para controlar el monitoreo constante
-puerto_nodo = os.getenv('PORT', 5051)  # Extraer el puerto de ejecución del microservicio
+puerto_nodo = sys.argv[1]  # Extraer el puerto de ejecución del microservicio
 
 # Función que simula el procesamiento de una llamada
 def procesar_llamada(client_id):
@@ -27,7 +26,7 @@ def procesar_llamada(client_id):
     with lock:
         llamadas_activas -= 1
         print(f"Llamada completada. Llamadas activas: {llamadas_activas}")
-    
+
     # Después de procesar la llamada, verificar el estado y reportar al monitor
     if llamadas_activas < MAX_LLAMADAS:
         reportar_estado(True)
@@ -85,4 +84,4 @@ def iniciar_monitoreo():
 if __name__ == '__main__':
     # Iniciar el monitoreo constante antes de ejecutar la aplicación
     iniciar_monitoreo()
-    app.run(port=puerto_nodo)
+    app.run(port=puerto_nodo, debug=False)

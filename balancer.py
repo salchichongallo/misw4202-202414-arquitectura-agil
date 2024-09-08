@@ -56,6 +56,14 @@ def get_node_by(name):
     raise Exception(f'Node "{name}" not found')
 
 
+def boot_new_node():
+    node = create_node()
+    nodes.append(node)
+    start_node(node)
+    release_node(node)
+    return node
+
+
 class CallResource(Resource):
     def post(self):
         node = next_node()
@@ -65,10 +73,7 @@ class CallResource(Resource):
 
 class NodesResource(Resource):
     def post(self):
-        node = create_node()
-        nodes.append(node)
-        start_node(node)
-        release_node(node)
+        node = boot_new_node()
         return jsonify({ 'node': node.name })
 
     def get(self):
@@ -94,4 +99,5 @@ api.add_resource(NodesResource, '/nodes')
 api.add_resource(SingleNodeResource, '/nodes/<string:nodeName>')
 
 if __name__ == '__main__':
+    boot_new_node()
     app.run(debug=False, port=os.environ.get('PORT', 5001))

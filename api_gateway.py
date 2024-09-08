@@ -34,13 +34,14 @@ class VistaLlamadas(Resource):
         counter += 1
         start_time = time.time()
         monitor_ms = "http://127.0.0.1:5001/assign-call"
-        requests.post(monitor_ms, json=request.json)
+        response = requests.post(monitor_ms, json=request.json)
         end_time = time.time()
         response_time = round((end_time - start_time) * 1000, 2)
         response = {
             "call_number": counter,
             "call_date": datetime.now().strftime("%d/%m/%Y, %H:%M:%S"),
-            "response_time": f"{response_time} ms"
+            "response_time": f"{response_time} ms",
+            "response": response.json(),
         }
 
         with open(file_name, "a") as file:

@@ -145,4 +145,5 @@ cython_debug/
 #DataBase
 test.db
 calls_response.txt
-experimento-seguridad/microservice-autenticator/instance
+
+*.db

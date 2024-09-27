@@ -144,5 +144,5 @@ cython_debug/
 
 #DataBase
 test.db
-/instance/eporra.db
 calls_response.txt
+experimento-seguridad/microservice-autenticator/instance

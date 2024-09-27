@@ -144,7 +144,6 @@ cython_debug/
 
 #DataBase
 test.db
-/instance/eporra.db
 calls_response.txt
 
 *.db

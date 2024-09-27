@@ -1,7 +1,5 @@
 from models import db, Usuario, RolEnum
 
-
-
 # Insertar datos semilla
 def insertar_datos_semilla():
     if Usuario.query.count() == 0:
@@ -12,11 +10,12 @@ def insertar_datos_semilla():
             Usuario(nombre='Agente2', correo='agente2@example.com', contrasena='12345678', rol=RolEnum.AGENTE)
         ]
 
-        usuarios[0].set_permisos(['PUEDE_VER', 'PUEDE_EDITAR'])  # Permisos para Gerente1
-        usuarios[1].set_permisos(['PUEDE_VER'])                  # Permisos para Cliente1
-        usuarios[2].set_permisos(['PUEDE_VER'])                  # Permisos para Agente1
-        usuarios[3].set_permisos(['PUEDE_VER', 'PUEDE_EDITAR'])  # Permisos para Agente2
+        usuarios[0].set_permisos(['PUEDE_VER_REPORTES', 'PUEDE_EDITAR_REPORTES'])   # Permisos para Gerente1
+        usuarios[1].set_permisos([])                                                # Permisos para Cliente1
+        usuarios[2].set_permisos(['PUEDE_VER_REPORTES'])                            # Permisos para Agente1
+        usuarios[3].set_permisos([])                                                # Permisos para Agente2
 
         db.session.bulk_save_objects(usuarios)
         db.session.commit()
         print("Datos semilla insertados.")
+

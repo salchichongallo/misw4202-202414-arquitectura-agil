@@ -44,6 +44,7 @@ class RolController(Resource):
 
         # Obtener los permisos del usuario como una lista
         permisos_usuario = usuario.get_permisos()
+
         # Validar si el usuario tiene el permiso requerido
         if permiso_requerido not in permisos_usuario:
             return {"mensaje": "Acceso denegado: Permiso insuficiente"}, 403

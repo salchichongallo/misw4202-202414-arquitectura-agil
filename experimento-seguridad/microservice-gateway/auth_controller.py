@@ -7,10 +7,15 @@ class AuthController(Resource):
         # Recibe las credenciales del cliente
         data = request.get_json()
 
-        # Envia las credenciales al microservicio de autenticación
-        response = requests.post('http://localhost:5001/login', json=data)
+        # Envía las credenciales al microservicio de autenticación
+        try:
+            response = requests.post('http://localhost:5001/login', json=data)
 
-        if response.status_code == 200:
-            return jsonify(response.json())
-        else:
-            return jsonify({'message': 'Credenciales incorrectas'}), response.status_code
+            # Si la respuesta es exitosa, extrae los datos JSON
+            if response.status_code == 200:
+                return response.json(), 200
+            else:
+                return {'message': 'Credenciales incorrectas'}, response.status_code
+        except requests.exceptions.RequestException as e:
+            # En caso de error de conexión u otro tipo de error en la solicitud
+            return {'message': f'Error al conectar con el servicio de autenticación: {str(e)}'}, 500

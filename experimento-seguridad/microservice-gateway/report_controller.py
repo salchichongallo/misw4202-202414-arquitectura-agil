@@ -13,8 +13,4 @@ class ReportController(Resource):
         headers = {'Authorization': token}
         response = requests.get(f'http://localhost:5002/reports/{report_id}', headers=headers)
 
-        if response.status_code == 200:
-            # Devolver la respuesta JSON directamente
-            return make_response(response.json(), 200)
-        else:
-            return make_response({'message': 'Error al obtener el reporte'}, response.status_code)
+        return make_response(response.json(), response.status_code)

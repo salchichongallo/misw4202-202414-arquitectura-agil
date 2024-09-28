@@ -25,7 +25,7 @@ class LoginController(Resource):
 
         # Si el usuario existe y la contraseña es correcta, generar el token
         token_de_acceso = create_access_token(identity=usuario.id)
-        return {"mensaje": "Inicio de sesión exitoso", "token": token_de_acceso}, 200
+        return {"mensaje": "Inicio de sesión exitoso", "token": token_de_acceso, "correo": usuario.correo, "nombre": usuario.nombre}, 200
 
 
 

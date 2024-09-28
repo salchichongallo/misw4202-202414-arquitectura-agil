@@ -5,7 +5,7 @@ from flask import jsonify, make_response, request
 
 
 def get_role_url(permission):
-    return f'http://localhost:5001/validate-role?permiso={permission}'
+    return f'http://127.0.0.1:5001/validate-role?permiso={permission}'
 
 
 class ReportController(Resource):

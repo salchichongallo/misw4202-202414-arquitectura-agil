@@ -9,7 +9,7 @@ class AuthController(Resource):
 
         # Envía las credenciales al microservicio de autenticación
         try:
-            response = requests.post('http://localhost:5001/login', json=data)
+            response = requests.post('http://127.0.0.1:5001/login', json=data)
 
             return response.json(), response.status_code
 

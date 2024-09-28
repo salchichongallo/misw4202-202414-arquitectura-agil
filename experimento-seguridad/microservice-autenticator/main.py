@@ -23,10 +23,10 @@ insertar_datos_semilla()
 
 api = Api(app)
 api.add_resource(LoginController, '/login')
-api.add_resource(RolController, '/validate-rol')
+api.add_resource(RolController, '/validate-role')
 
 jwt = JWTManager(app)
 
 
 if __name__ == '__main__':
-    app.run(debug=False, port=5001)
+    app.run(debug=False, port=5001, host='0.0.0.0')
